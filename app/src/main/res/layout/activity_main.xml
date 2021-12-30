@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/SoruSayButton"
+        android:layout_width="272dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="36dp"
+        android:text="Soru Sayısı Seç"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <TextView
+        android:id="@+id/questionText"
+        android:layout_width="324dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="100dp"
+        android:text="Oyuna Başlamak İçin Butona Tıklayın"
+        android:textAlignment="center"
+        android:textColor="#FFEB3B"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="280dp"
+        android:layout_height="246dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questionText">
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Adana"
+            android:textColor="#FFEB3B"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mersin"
+            android:textColor="#FFEB3B"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="İstanbul"
+            android:textColor="#FFEB3B"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bursa"
+            android:textColor="#FFEB3B"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/radioButton5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ankara"
+            android:textColor="#FFEB3B"
+            android:textSize="24sp" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/cevaplaButton"
+        android:layout_width="278dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="108dp"
+        android:onClick="Cevapla"
+        android:text="Cevapla"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="278dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="172dp"
+        android:onClick="Next"
+        android:text="Devam"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="301dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="200dp"
+        android:onClick="Start"
+        android:text="Başla"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/cevaplaButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/successButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Button"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
