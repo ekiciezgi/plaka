@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#5C5D93"
     tools:context=".MainActivity">
 
     <Button
@@ -19,8 +20,8 @@
 
     <TextView
         android:id="@+id/questionText"
-        android:layout_width="324dp"
-        android:layout_height="33dp"
+        android:layout_width="394dp"
+        android:layout_height="45dp"
         android:layout_marginTop="100dp"
         android:text="Oyuna Başlamak İçin Butona Tıklayın"
         android:textAlignment="center"
@@ -108,7 +109,6 @@
         android:layout_width="301dp"
         android:layout_height="65dp"
         android:layout_marginBottom="200dp"
-        android:onClick="Start"
         android:text="Başla"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/cevaplaButton"

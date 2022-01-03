@@ -35,7 +35,7 @@
         android:id="@+id/sinavaGeriDon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sinava Geri Don"
+        android:text="ANA SAYFAYA DÖN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="16dp" />

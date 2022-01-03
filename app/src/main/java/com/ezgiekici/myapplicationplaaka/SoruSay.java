@@ -17,10 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Random;
 
 public class SoruSay extends AppCompatActivity {
-    private TextView soruSay;
+
     private TextView soruSaySayac;
     private SeekBar soruSayGosterge;
-    private Tercihler tercihler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,29 +30,27 @@ public class SoruSay extends AppCompatActivity {
         soruSaySayac = (TextView) findViewById(R.id.soruSaySayac);
 
         soruSayGosterge = (SeekBar) findViewById(R.id.sorusayisiGosterge);
-        soruSayGosterge.setOnSeekBarChangeListener(konuDegerDegistir);
+        soruSayGosterge.setOnSeekBarChangeListener(soruSayisiDegistir);
         sinaviYenidenBaslat.setOnClickListener(sinaviYenidenBaslatTikla);
-        sinavaGeriDon.setOnClickListener(sinavaGeriDonTikla);
-        Intent konularIntent = getIntent();
-        tercihler = (Tercihler) konularIntent.getSerializableExtra("tercihler");
-        /*soruSayGosterge.setProgress(tercihler.getsoruSayisi());
-        soruSaySayac.setText(String.format("%d", tercihler.getsoruSayisi()));*/
+        sinavaGeriDon.setOnClickListener(anasayfayaGeriDonTikla);
+
     }
 
     public OnClickListener sinaviYenidenBaslatTikla = new OnClickListener() {
         public void onClick(View v) {
-            ((SoruSay) v.getContext()).setResult(1);
-            finish();
-
+            Intent yenidenBaşlatIntent = new Intent(SoruSay.this, MainActivity.class);
+            yenidenBaşlatIntent.putExtra("key", 1);
+            yenidenBaşlatIntent.putExtra("soruSayisi", soruSayGosterge.getProgress());
+            startActivity(yenidenBaşlatIntent);
         }
     };
-    public OnClickListener sinavaGeriDonTikla = new OnClickListener() {
+    public OnClickListener anasayfayaGeriDonTikla = new OnClickListener() {
         public void onClick(View v) {
-            ((SoruSay) v.getContext()).setResult(0);
-            finish();
+           finish();
         }
     };
-    public OnSeekBarChangeListener konuDegerDegistir = new OnSeekBarChangeListener() {
+
+    public OnSeekBarChangeListener soruSayisiDegistir = new OnSeekBarChangeListener() {
         public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
             SharedPreferences temelTercihler = getSharedPreferences("plakalar", MODE_PRIVATE);
             SharedPreferences.Editor temelTercihlerDegistir = temelTercihler.edit();
@@ -75,5 +72,6 @@ public class SoruSay extends AppCompatActivity {
 
         }
     };
+
 
 }

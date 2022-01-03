@@ -27,9 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> selectedCities;
     ArrayList<Integer> used;
-    private Tercihler tercihler;
     private int soruSayisi;
-    static final int YENIDEN_BASLAT = 1;
     TextView question;
     RadioButton rb1;
     RadioButton rb2;
@@ -42,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     Button successButton;
     Button nextButton;
     Button sorular;
+    int a;
+    int sayac;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         cevaplaButton = findViewById(R.id.cevaplaButton);
         successButton = findViewById(R.id.successButton);
         nextButton = findViewById(R.id.nextButton);
-         sorular = (Button) findViewById(R.id.SoruSayButton);
+        sorular = (Button) findViewById(R.id.SoruSayButton);
         used = new ArrayList<Integer>();
         selectedCities = new ArrayList<String>();
 
@@ -67,15 +68,25 @@ public class MainActivity extends AppCompatActivity {
         nextButton.setVisibility(View.INVISIBLE);
         sorular.setOnClickListener(soruTikla);
         startButton.setOnClickListener(sinaviBaslatTikla);
+        sayac = 0;
+        a = 0;
+        Intent i = getIntent();
+        a = i.getIntExtra("key", 0);
+        soruSayisi = i.getIntExtra("soruSayisi", 100000);
+
+
+        if(a == 1) {
+            Basla();
+        }
     }
+
     public void Basla(){
         startButton.setVisibility(View.INVISIBLE);
         rg.setVisibility(View.VISIBLE);
         cevaplaButton.setVisibility(View.VISIBLE);
         nextButton.setVisibility(View.VISIBLE);
         sorular.setVisibility(View.INVISIBLE);
-        for(int k=0;k<soruSayisi;k++)
-        {        Random random = new Random();
+                Random random = new Random();
             int rnd = random.nextInt(81) + 1;
             correctAnswerInt = rnd;
             correctAnswer = cities[rnd];
@@ -122,82 +133,79 @@ public class MainActivity extends AppCompatActivity {
             used.clear();
         }
 
-    }
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == YENIDEN_BASLAT) {
-            if (resultCode == 1) {
-                tercihleriOku();
-                Basla();
-            }
-        }
-    }
     public OnClickListener sinaviBaslatTikla = new OnClickListener() {
         public void onClick(View v){
-          Basla();
+            Basla();
         }
     };
-    private void tercihleriOku(){
-        SharedPreferences temelTercihler = getSharedPreferences("EhliyetSinavi", MODE_PRIVATE);
-        tercihler = new Tercihler( temelTercihler.getInt("soruSayisi", 10));
-    }
+
     public OnClickListener soruTikla = new OnClickListener() {
         public void onClick(View v){
             Intent soruIntent = new Intent();
-            soruIntent.putExtra("tercihler", tercihler);
             soruIntent.setClass(MainActivity.this,SoruSay.class);
             startActivity(soruIntent);
         }
     };
     public void Next(View view) {
-        successButton.setVisibility(View.INVISIBLE);
-        Random random = new Random();
-        int rnd = random.nextInt(81) + 1;
-        correctAnswerInt = rnd;
-        correctAnswer = cities[rnd];
-        selectedCities.add(cities[rnd]);
-
-        for(int i = 1; i<5; i++) {
-            while(selectedCities.contains(cities[rnd])){
-                rnd = random.nextInt(81) + 1;
-            }
+        if(sayac < soruSayisi-1) {
+            successButton.setVisibility(View.INVISIBLE);
+            Random random = new Random();
+            int rnd = random.nextInt(81) + 1;
+            correctAnswerInt = rnd;
+            correctAnswer = cities[rnd];
             selectedCities.add(cities[rnd]);
-        }
 
-        question.setText(correctAnswerInt + " Plakalı İlimiz Hangisidir?");
+            for(int i = 1; i<5; i++) {
+                while(selectedCities.contains(cities[rnd])){
+                    rnd = random.nextInt(81) + 1;
+                }
+                selectedCities.add(cities[rnd]);
+            }
 
-        rnd = random.nextInt(5);
-        used.add(rnd);
-        rb1.setText(selectedCities.get(rnd));
+            question.setText(correctAnswerInt + " Plakalı İlimiz Hangisidir?");
 
-        while(used.contains(rnd)) {
             rnd = random.nextInt(5);
+            used.add(rnd);
+            rb1.setText(selectedCities.get(rnd));
+
+            while(used.contains(rnd)) {
+                rnd = random.nextInt(5);
+            }
+            used.add(rnd);
+            rb2.setText(selectedCities.get(rnd));
+
+            while(used.contains(rnd)) {
+                rnd = random.nextInt(5);
+            }
+            used.add(rnd);
+            rb3.setText(selectedCities.get(rnd));
+
+            while(used.contains(rnd)) {
+                rnd = random.nextInt(5);
+            }
+            used.add(rnd);
+            rb4.setText(selectedCities.get(rnd));
+
+            while(used.contains(rnd)) {
+                rnd = random.nextInt(5);
+            }
+            used.add(rnd);
+            rb5.setText(selectedCities.get(rnd));
+
+            selectedCities.clear();
+            used.clear();
+
+            rg.clearCheck();
+
+            sayac++;
+        }else {
+            cevaplaButton.setVisibility(View.INVISIBLE);
+            rg.setVisibility(View.INVISIBLE);
+            successButton.setVisibility(View.INVISIBLE);
+            nextButton.setVisibility(View.INVISIBLE);
+            question.setText( "PLAKALAR SINAVI BİTTİ");
         }
-        used.add(rnd);
-        rb2.setText(selectedCities.get(rnd));
 
-        while(used.contains(rnd)) {
-            rnd = random.nextInt(5);
-        }
-        used.add(rnd);
-        rb3.setText(selectedCities.get(rnd));
-
-        while(used.contains(rnd)) {
-            rnd = random.nextInt(5);
-        }
-        used.add(rnd);
-        rb4.setText(selectedCities.get(rnd));
-
-        while(used.contains(rnd)) {
-            rnd = random.nextInt(5);
-        }
-        used.add(rnd);
-        rb5.setText(selectedCities.get(rnd));
-
-        selectedCities.clear();
-        used.clear();
-
-        rg.clearCheck();
     }
 
     public void Cevapla(View view) {
@@ -216,63 +224,6 @@ public class MainActivity extends AppCompatActivity {
             successButton.setTextColor(Color.RED);
             successButton.setText("Yanlış");
         }
-
         successButton.setVisibility(View.VISIBLE);
     }
-
-    public void Start(View view) {
-        startButton.setVisibility(View.INVISIBLE);
-        rg.setVisibility(View.VISIBLE);
-        cevaplaButton.setVisibility(View.VISIBLE);
-        nextButton.setVisibility(View.VISIBLE);
-       sorular.setVisibility(View.INVISIBLE);
-        for(int k=0;k<soruSayisi;k++)
-        {        Random random = new Random();
-            int rnd = random.nextInt(81) + 1;
-        correctAnswerInt = rnd;
-        correctAnswer = cities[rnd];
-        selectedCities.add(cities[rnd]);
-
-        for(int i = 1; i<5; i++) {
-            while(selectedCities.contains(cities[rnd])){
-                rnd = random.nextInt(81) + 1;
-            }
-            selectedCities.add(cities[rnd]);
-        }
-
-        question.setText(correctAnswerInt + " Plakalı İlimiz Hangisidir?");
-
-        rnd = random.nextInt(5);
-        used.add(rnd);
-        rb1.setText(selectedCities.get(rnd));
-
-        while(used.contains(rnd)) {
-            rnd = random.nextInt(5);
-        }
-        used.add(rnd);
-        rb2.setText(selectedCities.get(rnd));
-
-        while(used.contains(rnd)) {
-            rnd = random.nextInt(5);
-        }
-        used.add(rnd);
-        rb3.setText(selectedCities.get(rnd));
-
-        while(used.contains(rnd)) {
-            rnd = random.nextInt(5);
-        }
-        used.add(rnd);
-        rb4.setText(selectedCities.get(rnd));
-
-        while(used.contains(rnd)) {
-            rnd = random.nextInt(5);
-        }
-        used.add(rnd);
-        rb5.setText(selectedCities.get(rnd));
-
-        selectedCities.clear();
-        used.clear();
-    }
-}
-
 }
